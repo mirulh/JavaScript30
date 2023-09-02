@@ -1,52 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Scoped CSS Variables and JS</title>
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
-  <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scoped CSS Variables and JS</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <h2>Update CSS Variables with <span class="hl">JS</span></h2>
 
-  <div class="controls">
-    <label for="spacing">Spacing:</label>
-    <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input
+        id="spacing"
+        type="range"
+        name="spacing"
+        min="10"
+        max="200"
+        value="10"
+        data-sizing="px"
+        data-example1="something"
+        data-example2="aboutData"
+      />
 
-    <label for="blur">Blur:</label>
-    <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+      <label for="blur">Blur:</label>
+      <input
+        id="blur"
+        type="range"
+        name="blur"
+        min="0"
+        max="25"
+        value="10"
+        data-sizing="px"
+      />
+      <!-- value = sets the initial value of the spacing and blur -->
+      <!-- data sizing is a custom attribute with data as a suffix -->
 
-    <label for="base">Base Color</label>
-    <input id="base" type="color" name="base" value="#ffc600">
-  </div>
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600" />
+    </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
 
-  <style>
+    <style>
+      /* :root selector is used to target the highest-level parent element of the document, which is typically the <html> element. It is often used to define global CSS variables (custom properties) that can be used throughout the stylesheet. These global variables can be updated dynamically using JavaScript. */
 
-    /*
+      :root {
+        /* frame color */
+        --base: #ffc600;
+        --spacing: 10px;
+        --blur: 10px;
+      }
+
+      img {
+        padding: var(--spacing);
+        /* adding frame */
+        background: var(--base);
+        filter: blur(var(--blur));
+      }
+
+      /* changes JS color equal to --base color = yellow */
+      .hl {
+        color: var(--base);
+      }
+
+      /*
       misc styles, nothing to do with CSS variables
     */
 
-    body {
-      text-align: center;
-      background: #193549;
-      color: white;
-      font-family: 'helvetica neue', sans-serif;
-      font-weight: 100;
-      font-size: 50px;
-    }
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: "helvetica neue", sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
 
-    .controls {
-      margin-bottom: 50px;
-    }
+      .controls {
+        margin-bottom: 50px;
+      }
 
-    input {
-      width: 100px;
-    }
-  </style>
+      input {
+        width: 100px;
+      }
+    </style>
 
-  <script>
-  </script>
+    <script>
+      const inputs = document.querySelectorAll(".controls input");
 
-</body>
+      function handleUpdate() {
+        // console.log the value and the id and name when slider is moved
+        // console.log(this.value, this.id, this.name);
+        // listing all associated dataset (eg. px)
+        // console.log(dataset);
+
+        // OR removes undefined output in the console
+        const thisSuffix = this.dataset.sizing || "";
+        // console.log(thisSuffix);
+        document.documentElement.style.setProperty(
+          `--${this.name}`,
+          this.value + thisSuffix //thisSuffix variable to add the "px" data to the this.value eg. 10 px
+        );
+        // this changes can be observed in the elements tab where the spacing or blur value will change accordingly as the slider's moves
+      }
+
+      // inputs.forEach((input) => input.addEventListener("change", handleUpdate));
+      // inputs.forEach((input) => input.addEventListener("mousemove", handleUpdate))complex way to write
+
+      //traditional approach
+      inputs.forEach(function (input) {
+        input.addEventListener("change", handleUpdate);
+      });
+
+      inputs.forEach(function (input) {
+        input.addEventListener("mousemove", handleUpdate);
+      });
+    </script>
+  </body>
 </html>

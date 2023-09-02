@@ -1,67 +1,109 @@
+<!-- To those following along with this as part of the Odin Project. If you are confused about updating the keyCode and data-key instructions. 
+
+1) Ctrl + F in code - search for "e.keyCode"  -> replace with e.code
+2) Ctr + F in code - search "data-keys" -> In the HTML body, replace numerical numbers in the classes for both audio and div with KeyA, Key D, etc. example: <div data-key="68"> would become <div data-key="KeyA"> 
+  
+[keyCode is deprecated]-->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>JS Drum Kit</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="https://fav.farm/🔥" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Drum Kit</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
 
+  <body>
+    <div class="keys">
+      <div data-key="KeyA" class="key">
+        <kbd>A</kbd>
+        <span class="sound">clap</span>
+      </div>
+      <div data-key="KeyS" class="key">
+        <kbd>S</kbd>
+        <span class="sound">hihat</span>
+      </div>
+      <div data-key="KeyD" class="key">
+        <kbd>D</kbd>
+        <span class="sound">kick</span>
+      </div>
+      <div data-key="KeyF" class="key">
+        <kbd>F</kbd>
+        <span class="sound">openhat</span>
+      </div>
+      <div data-key="KeyG" class="key">
+        <kbd>G</kbd>
+        <span class="sound">boom</span>
+      </div>
+      <div data-key="KeyH" class="key">
+        <kbd>H</kbd>
+        <span class="sound">ride</span>
+      </div>
+      <div data-key="KeyJ" class="key">
+        <kbd>J</kbd>
+        <span class="sound">snare</span>
+      </div>
+      <div data-key="KeyK" class="key">
+        <kbd>K</kbd>
+        <span class="sound">tom</span>
+      </div>
+      <div data-key="KeyL" class="key">
+        <kbd>L</kbd>
+        <span class="sound">tink</span>
+      </div>
+    </div>
 
-  <div class="keys">
-    <div data-key="65" class="key">
-      <kbd>A</kbd>
-      <span class="sound">clap</span>
-    </div>
-    <div data-key="83" class="key">
-      <kbd>S</kbd>
-      <span class="sound">hihat</span>
-    </div>
-    <div data-key="68" class="key">
-      <kbd>D</kbd>
-      <span class="sound">kick</span>
-    </div>
-    <div data-key="70" class="key">
-      <kbd>F</kbd>
-      <span class="sound">openhat</span>
-    </div>
-    <div data-key="71" class="key">
-      <kbd>G</kbd>
-      <span class="sound">boom</span>
-    </div>
-    <div data-key="72" class="key">
-      <kbd>H</kbd>
-      <span class="sound">ride</span>
-    </div>
-    <div data-key="74" class="key">
-      <kbd>J</kbd>
-      <span class="sound">snare</span>
-    </div>
-    <div data-key="75" class="key">
-      <kbd>K</kbd>
-      <span class="sound">tom</span>
-    </div>
-    <div data-key="76" class="key">
-      <kbd>L</kbd>
-      <span class="sound">tink</span>
-    </div>
-  </div>
+    <audio data-key="KeyA" src="sounds/clap.wav"></audio>
+    <audio data-key="KeyS" src="sounds/hihat.wav"></audio>
+    <audio data-key="KeyD" src="sounds/kick.wav"></audio>
+    <audio data-key="KeyF" src="sounds/openhat.wav"></audio>
+    <audio data-key="KeyG" src="sounds/boom.wav"></audio>
+    <audio data-key="KeyH" src="sounds/ride.wav"></audio>
+    <audio data-key="KeyJ" src="sounds/snare.wav"></audio>
+    <audio data-key="KeyK" src="sounds/tom.wav"></audio>
+    <audio data-key="KeyL" src="sounds/tink.wav"></audio>
 
-  <audio data-key="65" src="sounds/clap.wav"></audio>
-  <audio data-key="83" src="sounds/hihat.wav"></audio>
-  <audio data-key="68" src="sounds/kick.wav"></audio>
-  <audio data-key="70" src="sounds/openhat.wav"></audio>
-  <audio data-key="71" src="sounds/boom.wav"></audio>
-  <audio data-key="72" src="sounds/ride.wav"></audio>
-  <audio data-key="74" src="sounds/snare.wav"></audio>
-  <audio data-key="75" src="sounds/tom.wav"></audio>
-  <audio data-key="76" src="sounds/tink.wav"></audio>
+    <script>
+      // this is the function of keydown and function (e) of what it will perform together upon key press.
+      // also a good point of view to see how the function can be separated into one of its own like in the final code (https://www.youtube.com/watch?v=VuN8qwZoego (18:30))
 
-<script>
+      // window.addEventListener("keydown", function (e) {
+      //       // console.log(e.keyCode); to view key pressed in the console log
+      //       const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`); //to test the key output  in the console.log
+      //       const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      //       if (!audio) return; //stop the function from running all together (for unexist letter such as q = (81), w, r etc.)
+      //       audio.currentTime = 0; //rewind to the start, make the instrument audio repeatable immediately
+      //       audio.play();
+      //       key.classList.add("playing");
+      //       // console.log(audio);
+      //     });
 
-</script>
+      // ______________________________________________________________________
 
+      function playSound(e) {
+        // console.log(e.keyCode); to view key pressed in the console log
+        const audio = document.querySelector(`audio[data-key="${e.code}"]`); //to test the key output  in the console.log
+        const key = document.querySelector(`.key[data-key="${e.code}"]`);
+        if (!audio) return; //stop the function from running all together (for unexist letter such as q = (81), w, r etc.)
+        audio.currentTime = 0; //rewind to the start, make the instrument audio repeatable immediately
+        audio.play();
+        key.classList.add("playing");
+        // console.log(audio);
+      }
 
-</body>
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") return; //skip it if it's not a transform, (transform is a reserve CSS propertyName)
+        console.log(e.propertyName); //check the transition time, can be change in css to see the effects on [0.07s]
+        this.classList.remove("playing"); //remove the highlighted box of ' playing' property
+      }
+
+      const keys = document.querySelectorAll(".key");
+      keys.forEach((key) =>
+        key.addEventListener("transitionend", removeTransition)
+      );
+
+      window.addEventListener("keydown", playSound);
+    </script>
+  </body>
 </html>
