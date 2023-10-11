@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="panels">
+      <div class="panel panel1">
+        <p>hey</p>
+        <p>let's</p>
+        <p>dance</p>
+      </div>
+      <div class="panel panel2">
+        <p>give</p>
+        <p>take</p>
+        <p>receive</p>
+      </div>
+      <div class="panel panel3">
+        <p>experience</p>
+        <p>it</p>
+        <p>today</p>
+      </div>
+      <div class="panel panel4">
+        <p>give</p>
+        <p>all</p>
+        <p>you can</p>
+      </div>
+      <div class="panel panel5">
+        <p>life</p>
+        <p>in</p>
+        <p>motion</p>
+      </div>
+    </div>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .panel1 {
+        background-image: url(https://source.unsplash.com/gYl-UtwNg_I/1500x1500);
+      }
+      .panel2 {
+        background-image: url(https://source.unsplash.com/rFKUFzjPYiQ/1500x1500);
+      }
+      .panel3 {
+        background-image: url(https://images.unsplash.com/photo-1465188162913-8fb5709d6d57?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&w=1500&h=1500&fit=crop&s=967e8a713a4e395260793fc8c802901d);
+      }
+      .panel4 {
+        background-image: url(https://source.unsplash.com/ITjiVXcwVng/1500x1500);
+      }
+      .panel5 {
+        background-image: url(https://source.unsplash.com/3MNzGlQM7qs/1500x1500);
+      }
+
+      .panels {
+        display: flex;
+        flex: 1;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      .panel {
+        background-position: center;
+        background-size: cover;
+        align-items: center;
+        font-size: 2em;
+
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .panels p:nth-child(2) {
+        font-size: 3em;
+      }
+    </style>
+    <script></script>
+  </body>
+</html>
